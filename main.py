@@ -41,6 +41,9 @@ async def play(ctx, url):
 @client.command()
 async def emote(ctx, cat, usr):
 
+    if cat in ['help']:
+        await ctx.send('bully, cuddle, cry, hug, kiss, lick, pat, bonk, yeet, blush, smile, wave, handhold, handhold, nom, bite, glomp, slap, kill, kick, happy, wink, poke, dance, cringe')
+
     if cat in ['bully']:
         response = requests.get('https://api.waifu.pics/sfw/bully')
         json = response.json()
