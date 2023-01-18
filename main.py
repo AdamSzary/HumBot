@@ -9,7 +9,7 @@ import json
 
 intents = discord.Intents.all()
 
-client = commands.Bot(command_prefix='.',intents=intents)
+client = commands.Bot(command_prefix='#',intents=intents)
 
 @client.event
 async def on_ready():
@@ -19,6 +19,16 @@ async def on_ready():
 async def join(ctx):
     channel = ctx.author.voice.channel
     await channel.connect()
+
+@client.command()
+async def stop(ctx):
+    voice = get(client.voice_clients, guild=ctx.guild)
+    voice.stop()
+    await ctx.send("OK")
+
+@client.command()
+async def leave(ctx):
+    await ctx.voice_client.disconnect()
 
 @client.command()
 async def play(ctx, url):
@@ -275,9 +285,5 @@ async def nswaifu(ctx, cat):
 
     if cat in ['help']:
         await ctx.send('waifu, neko, trap, blowjob')
-
-@client.command()
-async def leave(ctx):
-    await ctx.voice_client.disconnect()
 
 client.run('Token Here')
