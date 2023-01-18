@@ -7,7 +7,9 @@ from youtube_dl import YoutubeDL
 import requests
 import json
 
-client = commands.Bot(command_prefix='.')
+intents = discord.Intents.all()
+
+client = commands.Bot(command_prefix='.',intents=intents)
 
 @client.event
 async def on_ready():
@@ -278,4 +280,4 @@ async def nswaifu(ctx, cat):
 async def leave(ctx):
     await ctx.voice_client.disconnect()
 
-client.run('Token')
+client.run('OTIyNTI0NzA5NjI1Njg0MDc5.GjBOUe.wtDET9hKUorNgGZKoLF3YGmBOS0AwR8UqFN6-Y')
