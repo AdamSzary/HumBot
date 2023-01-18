@@ -280,4 +280,4 @@ async def nswaifu(ctx, cat):
 async def leave(ctx):
     await ctx.voice_client.disconnect()
 
-client.run('OTIyNTI0NzA5NjI1Njg0MDc5.GjBOUe.wtDET9hKUorNgGZKoLF3YGmBOS0AwR8UqFN6-Y')
+client.run('Token Here')
