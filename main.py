@@ -7,13 +7,15 @@ from youtube_dl import YoutubeDL
 import requests
 import json
 
+json = response.json()
+
 intents = discord.Intents.all()
 
 client = commands.Bot(command_prefix='#',intents=intents)
 
 @client.event
 async def on_ready():
-    print('Podłączono do Discorda')
+    print('Conected to Discord')
 
 @client.command()
 async def join(ctx):
@@ -53,237 +55,183 @@ async def play(ctx, url):
 @client.command()
 async def emote(ctx, cat, usr):
 
-    if cat in ['help']:
-        await ctx.send('bully, cuddle, cry, hug, kiss, lick, pat, bonk, yeet, blush, smile, wave, handhold, handhold, nom, bite, glomp, slap, kill, kick, happy, wink, poke, dance, cringe')
+    aut = ctx.message.author.mention
 
-    if cat in ['bully']:
-        response = requests.get('https://api.waifu.pics/sfw/bully')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is bullying {usr}')
-        await ctx.send(json["url"])
+    match (cat):
+        case 'help':
+            await ctx.send('bully, cuddle, cry, hug, kiss, lick, pat, bonk, yeet, blush, smile, wave, handhold, handhold, nom, bite, glomp, slap, kill, kick, happy, wink, poke, dance, cringe')
+        case 'bully':
+            response = requests.get('https://api.waifu.pics/sfw/bully')
+            await ctx.send(f'{aut} is bullying {usr}')
 
-    if cat in ['cuddle']:
-        response = requests.get('https://api.waifu.pics/sfw/cuddle')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is hugging {usr}')
-        await ctx.send(json["url"])
+            await ctx.send(json["url"])
+        case 'cuddle':
+            response = requests.get('https://api.waifu.pics/sfw/cuddle')
+            await ctx.send(f'{aut} is hugging {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['cry']:
-        response = requests.get('https://api.waifu.pics/sfw/cry')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is crying')
-        await ctx.send(json["url"])
+        case 'cry':
+            response = requests.get('https://api.waifu.pics/sfw/cry')
+            await ctx.send(f'{aut} is crying')
+            await ctx.send(json["url"])
 
-    if cat in ['hug']:
-        response = requests.get('https://api.waifu.pics/sfw/hug')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is hugging {usr}')
-        await ctx.send(json["url"])
+        case 'hug':
+            response = requests.get('https://api.waifu.pics/sfw/hug')
+            await ctx.send(f'{aut} is hugging {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['kiss']:
-        response = requests.get('https://api.waifu.pics/sfw/kiss')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} kissed {usr}')
-        await ctx.send(json["url"])
+        case 'kiss':
+            response = requests.get('https://api.waifu.pics/sfw/kiss')
+            await ctx.send(f'{aut} kissed {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['lick']:
-        response = requests.get('https://api.waifu.pics/sfw/lick')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} licked {usr}')
-        await ctx.send(json["url"])
+        case 'lick':
+            response = requests.get('https://api.waifu.pics/sfw/lick')
+            await ctx.send(f'{aut} licked {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['pat']:
-        response = requests.get('https://api.waifu.pics/sfw/pat')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} patted {usr}')
-        await ctx.send(json["url"])
+        case 'pat':
+            response = requests.get('https://api.waifu.pics/sfw/pat')
+            await ctx.send(f'{aut} patted {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['bonk']:
-        response = requests.get('https://api.waifu.pics/sfw/bonk')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} have hitted {usr}')
-        await ctx.send(json["url"])
+        case 'bonk':
+            response = requests.get('https://api.waifu.pics/sfw/bonk')
+            await ctx.send(f'{aut} have hitted {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['yeet']:
-        response = requests.get('https://api.waifu.pics/sfw/yeet')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} have threw {usr}')
-        await ctx.send(json["url"])
+        case 'yeet':
+            response = requests.get('https://api.waifu.pics/sfw/yeet')
+            await ctx.send(f'{aut} have threw {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['blush']:
-        response = requests.get('https://api.waifu.pics/sfw/blush')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} has blushed')
-        await ctx.send(json["url"])
+        case 'blush':
+            response = requests.get('https://api.waifu.pics/sfw/blush')
+            await ctx.send(f'{aut} has blushed')
+            await ctx.send(json["url"])
 
-    if cat in ['smile']:
-        response = requests.get('https://api.waifu.pics/sfw/smile')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is smiling')
-        await ctx.send(json["url"])
+        case 'smile':
+            response = requests.get('https://api.waifu.pics/sfw/smile')
+            await ctx.send(f'{aut} is smiling')
+            await ctx.send(json["url"])
+        
+        case 'wave':
+            response = requests.get('https://api.waifu.pics/sfw/wave')
+            await ctx.send(f'{aut} is waving to {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['wave']:
-        response = requests.get('https://api.waifu.pics/sfw/wave')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is waving to {usr}')
-        await ctx.send(json["url"])
+        case 'highfive':
+            response = requests.get('https://api.waifu.pics/sfw/highfive')
+            await ctx.send(f'{aut} gave {usr} a high five')
+            await ctx.send(json["url"])
 
-    if cat in ['highfive']:
-        response = requests.get('https://api.waifu.pics/sfw/highfive')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} gave {usr} a high five')
-        await ctx.send(json["url"])
+        case 'handhold':
+            response = requests.get('https://api.waifu.pics/sfw/handhold')
+            await ctx.send(f'{aut} is hand holding {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['handhold']:
-        response = requests.get('https://api.waifu.pics/sfw/handhold')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is hand holding {usr}')
-        await ctx.send(json["url"])
+        case 'nom':
+            response = requests.get('https://api.waifu.pics/sfw/nom')
+            await ctx.send(json["url"])
 
-    if cat in ['nom']:
-        response = requests.get('https://api.waifu.pics/sfw/nom')
-        json = response.json()
-        await ctx.send(json["url"])
+        case 'bite':
+            response = requests.get('https://api.waifu.pics/sfw/bite')
+            await ctx.send(f'{aut} is bitting {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['bite']:
-        response = requests.get('https://api.waifu.pics/sfw/bite')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is bitting {usr}')
-        await ctx.send(json["url"])
+        case 'glomp':
+            response = requests.get('https://api.waifu.pics/sfw/glomp')
+            await ctx.send(f'{aut} is hugging {usr} very hard')
+            await ctx.send(json["url"])
 
-    if cat in ['glomp']:
-        response = requests.get('https://api.waifu.pics/sfw/glomp')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is hugging {usr} very hard')
-        await ctx.send(json["url"])
+        case 'slap':
+            response = requests.get('https://api.waifu.pics/sfw/slap')
+            await ctx.send(f'{aut} slapped {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['slap']:
-        response = requests.get('https://api.waifu.pics/sfw/slap')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} slapped {usr}')
-        await ctx.send(json["url"])
+        case 'kill':    
+            response = requests.get('https://api.waifu.pics/sfw/kill')
+            await ctx.send(f'{aut} have killed {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['kill']:
-        response = requests.get('https://api.waifu.pics/sfw/kill')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} have killed {usr}')
-        await ctx.send(json["url"])
+        case 'kick':    
+            response = requests.get('https://api.waifu.pics/sfw/kick')
+            await ctx.send(f'{aut} have kicked {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['kick']:
-        response = requests.get('https://api.waifu.pics/sfw/kick')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} have kicked {usr}')
-        await ctx.send(json["url"])
+        case 'happy':
+            response = requests.get('https://api.waifu.pics/sfw/happy')
+            await ctx.send(f'{aut} have is happy')
+            await ctx.send(json["url"])
 
-    if cat in ['happy']:
-        response = requests.get('https://api.waifu.pics/sfw/happy')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} have is happy')
-        await ctx.send(json["url"])
+        case 'wink':
+            response = requests.get('https://api.waifu.pics/sfw/wink')
+            await ctx.send(f'{aut} is winking to {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['wink']:
-        response = requests.get('https://api.waifu.pics/sfw/wink')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is winking to {usr}')
-        await ctx.send(json["url"])
+        case 'poke':
+            response = requests.get('https://api.waifu.pics/sfw/poke')
+            await ctx.send(f'{aut} is poking {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['poke']:
-        response = requests.get('https://api.waifu.pics/sfw/poke')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is poking {usr}')
-        await ctx.send(json["url"])
+        case 'dance':
+            response = requests.get('https://api.waifu.pics/sfw/dance')
+            await ctx.send(f'{aut} is dancing with {usr}')
+            await ctx.send(json["url"])
 
-    if cat in ['dance']:
-        response = requests.get('https://api.waifu.pics/sfw/dance')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is dancing with {usr}')
-        await ctx.send(json["url"])
-
-    if cat in ['cringe']:
-        response = requests.get('https://api.waifu.pics/sfw/cringe')
-        json = response.json()
-        aut = ctx.message.author.mention
-        await ctx.send(f'{aut} is embarassed with {usr}')
-        await ctx.send(json["url"])
-
+        case 'cringe':
+            response = requests.get('https://api.waifu.pics/sfw/cringe')
+            await ctx.send(f'{aut} is embarassed with {usr}')
+            await ctx.send(json["url"])
 
 @client.command()
 async def waifu(ctx, cat):
 
-    if cat in ['waifu']:
-        response = requests.get('https://api.waifu.pics/sfw/waifu')
-        json = response.json()
-        await ctx.send(json["url"])
+    match (cat):
+        case 'help':
+            await ctx.send('waifu, awoo, neko, shinobu, megumin, awoo')
 
-    if cat in ['neko']:
-        response = requests.get('https://api.waifu.pics/sfw/neko')
-        json = response.json()
-        await ctx.send(json["url"])
+        case 'waifu':
+            response = requests.get('https://api.waifu.pics/sfw/waifu')
+            await ctx.send(json["url"])
 
-    if cat in ['shinobu']:
-        response = requests.get('https://api.waifu.pics/sfw/shinobu')
-        json = response.json()
-        await ctx.send(json["url"])
+        case 'neko':
+            response = requests.get('https://api.waifu.pics/sfw/neko')
+            await ctx.send(json["url"])
 
-    if cat in ['megumin']:
-        response = requests.get('https://api.waifu.pics/sfw/megumin')
-        json = response.json()
-        await ctx.send(json["url"])
+        case 'shinobu':
+            response = requests.get('https://api.waifu.pics/sfw/shinobu')
+            await ctx.send(json["url"])
 
-    if cat in ['awoo']:
-        response = requests.get('https://api.waifu.pics/sfw/awoo')
-        json = response.json()
-        await ctx.send(json["url"])
+        case 'megumin':
+            response = requests.get('https://api.waifu.pics/sfw/megumin')
+            await ctx.send(json["url"])
 
-    if cat in ['help']:
-        await ctx.send('waifu, awoo, neko, shinobu, megumin, awoo')
-
+        case 'awoo':
+            response = requests.get('https://api.waifu.pics/sfw/awoo')
+            await ctx.send(json["url"])
+        
 @client.command()
 async def nswaifu(ctx, cat):
-    if cat in ['waifu']:
-        response = requests.get('https://api.waifu.pics/nsfw/waifu')
-        json = response.json()
-        await ctx.send(json["url"])
 
-    if cat in ['neko']:
-        response = requests.get('https://api.waifu.pics/nsfw/neko')
-        json = response.json()
-        await ctx.send(json["url"])
+    match (cat):
+        case 'help':
+            await ctx.send('waifu, neko, trap, blowjob')
 
-    if cat in ['trap']:
-        response = requests.get('https://api.waifu.pics/nsfw/trap')
-        json = response.json()
-        await ctx.send(json["url"])
+        case 'waifu':
+            response = requests.get('https://api.waifu.pics/nsfw/waifu')
+            await ctx.send(json["url"])
 
-    if cat in ['blowjob']:
-        response = requests.get('https://api.waifu.pics/nsfw/trap')
-        json = response.json()
-        await ctx.send(json["url"])
+        case 'neko':
+            response = requests.get('https://api.waifu.pics/nsfw/neko')
+            await ctx.send(json["url"])
 
-    if cat in ['help']:
-        await ctx.send('waifu, neko, trap, blowjob')
+        case 'trap':
+            response = requests.get('https://api.waifu.pics/nsfw/trap')
+            await ctx.send(json["url"])
+
+        case 'blowjob':
+            response = requests.get('https://api.waifu.pics/nsfw/trap')
+            await ctx.send(json["url"])
 
 client.run('Token Here')
