@@ -1,5 +1,5 @@
 ##Configuration
-token = ''
+bot_token = ''
 
 minecraft_rcon_host = ''
 minecraft_rcon_port = ''
@@ -10,10 +10,12 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 from discord import FFmpegPCMAudio
-from youtube_dl import YoutubeDL
+from yt_dlp import YoutubeDL
 import requests
 import json
 import time
+import queue
+import asyncio
 from rcon.source import rcon
 
 intents = discord.Intents.all()
@@ -25,12 +27,6 @@ async def on_ready():
     print('Connected to Discord')
 
 ## Music commands
-
-@client.command()
-async def join(ctx):
-    channel = ctx.author.voice.channel
-    await channel.connect()
-
 @client.command()
 async def stop(ctx):
     voice = get(client.voice_clients, guild=ctx.guild)
@@ -41,8 +37,17 @@ async def stop(ctx):
 async def leave(ctx):
     await ctx.voice_client.disconnect()
 
-@client.command()
-async def play(ctx, url):
+def after(error):
+    try:
+        if not url_q.empty():
+            fut = asyncio.run_coroutine_threadsafe(player(gctx, url_q), client.loop)
+            fut.result()
+    except Exception as exc:
+        print(exc)
+        
+    
+
+async def player(ctx, url_q):
     YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
     FFMPEG_OPTIONS = {
         'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
@@ -50,14 +55,37 @@ async def play(ctx, url):
 
     if not voice.is_playing():
         with YoutubeDL(YDL_OPTIONS) as ydl:
-            info = ydl.extract_info(url, download=False)
-        URL = info['url']
-        voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
-        voice.is_playing()
-        await ctx.send('Bot is playing')
+            info = ydl.extract_info(url_q.get(), download=False)
+            URL = info['url']
+            voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS), after=after)
+            voice.is_playing()
+            await ctx.send('Playing: ' + '**[' + info['title'] + ']**')
 
-    else:
-        await ctx.send("Bot is aleready playing")
+url_q = queue.LifoQueue(50)
+
+@client.command()
+async def play(ctx, url):
+    url_q.put_nowait(url)
+    await ctx.send('Added ' + url + ' to queue')
+
+    await player(ctx, url_q)
+
+    global gurl
+    gurl = url
+
+    global gctx
+    gctx = ctx
+
+@client.command()
+async def join(ctx):
+    channel = ctx.author.voice.channel
+    await channel.connect()
+
+@client.command()
+async def skip(ctx):
+    voice = get(client.voice_clients, guild=ctx.guild)
+    voice.stop()
+    await player(ctx, gurl, url_q)
 
 ## Emote commands
 
