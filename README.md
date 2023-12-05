@@ -1,2 +1,2 @@
-HumBot is a multifinction bot for Discord written in python
+HumBot is a multifinction Discord Bot written in Python
 

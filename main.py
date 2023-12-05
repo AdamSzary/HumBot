@@ -1,22 +1,20 @@
-##Configuration
-bot_token = ''
-
-minecraft_rcon_host = ''
-minecraft_rcon_port = ''
-minecraft_rcon_password = ''
-
-import os
 import discord
 from discord.ext import commands
 from discord.utils import get
 from discord import FFmpegPCMAudio
 from yt_dlp import YoutubeDL
 import requests
-import json
 import time
 import queue
 import asyncio
 from rcon.source import rcon
+
+##Configuration
+bot_token = ''
+
+minecraft_rcon_host = ''
+minecraft_rcon_port = ''
+minecraft_rcon_password = ''
 
 intents = discord.Intents.all()
 
